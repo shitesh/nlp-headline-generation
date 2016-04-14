@@ -5,7 +5,7 @@ import sys
 print sys.getdefaultencoding()
 from sys import argv
 #For reading command line input
-#Usage: python TNTPOSTagger.py "/home/mandyamd/Downloads/pos_tagger/hindi-pos-tagger-3.0/data">log.txt
+#Usage: python NewParser2.py "/home/mandyamd/Downloads/pos_tagger/hindi-pos-tagger-3.0/data">myout22.txt
 script, input = argv
 
 #########################################Structure Definitions#################################################################
@@ -28,8 +28,8 @@ def GetFilesInFolder():
 #This function executes POS tagger and writes the contents to "hindi.output"
 def Execute_POSTagger(fname):
     print "filename:"+fname
-    command1 = "cat "+fname+" | ./bin/unitok.py -l hindi -n | sed -e 's/।/./g' | sed -e 's/^\.$/.\\n<\/s>\\n<s>/g' |  ./bin/normalize_vert.py  > hindi.tmp.words"
-    #print "commnad is :"+command1
+    command1 = "cat "+fname+" | ./bin/unitok.py -l hindi -n | sed -e 's/?/./g' | sed -e 's/^\.$/.\\n<\/s>\\n<s>/g' |  ./bin/normalize_vert.py  > hindi.tmp.words"
+
     os.system(command1)
     print "Executed command 1"
     commnad2 = "./bin/tnt -v0 -H models/hindi   hindi.tmp.words | sed -e 's/\t\+/\t/g' | ./bin/lemmatiser.py models/hindi.lemma | ./bin/tag2vert.py > hindi.output"
@@ -46,12 +46,12 @@ def Generate_POS_Tagged_Files():
        with open(fname, 'r') as filename:
         #this structure appends the words and tags and finally this string is written to output file.
         file_data = ""
-        #print "Current File:"+fname
+
 	# Contains words from input file with tags
     	Output_file_data = []
 	
         Execute_POSTagger(fname)
-	#print "POS tagging done"
+
         #file pointer to new output file generated for each of the input files
         FileP = "out"+str(FileCount)+".txt"
         outFile =  open(FileP,'w')
@@ -61,15 +61,15 @@ def Generate_POS_Tagged_Files():
 	inputFile = open('hindi.output','r')
 
         for line in inputFile:
-            #print "current line is "+line
+
             line = line.strip()
             WordOfLine = line.split()
-            #print "entering words for loop"
+
             for word in WordOfLine:
-                    #print "current word is "+word+"\n count is "+str(Word_Count_In_Line)
+
                     if Word_Count_In_Line==0:
                         TempString = ""+word+"/"
-                        #print "count is "+str(Word_Count_In_Line)
+
                     if Word_Count_In_Line==2:
                         TempString = TempString+word
                     	Output_file_data.append(TempString)
