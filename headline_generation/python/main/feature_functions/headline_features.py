@@ -11,6 +11,7 @@ To add:
 
 import math
 
+
 def compute_POS_language_feature(headline_word_tag_list):
     """ Returns POS language model feature value for the headline
     """
@@ -23,11 +24,12 @@ def compute_POS_language_feature(headline_word_tag_list):
     count = 1
 
     #initialization of dictionary
-    for entry in headline_word_tag_list:
+    tokens = headline_word_tag_list.split(" ")
+    for entry in tokens:
         word, tag = entry.rsplit('/', 1)
         if count>2 :
             probablity = (trigram_dict[prev][cur][next])/float(bigram_dict[prev][cur])
-            POSLM_feature = math.log(probablity, 10)
+            POSLM_feature =POSLM_feature+ math.log(probablity, 10)
         prev = cur
         cur = next
         next = tag
@@ -45,22 +47,59 @@ def generate_trigram_counts(headline_word_tag_list):
     cur = "start"
     next = "start"
     POS_LMProbablity={}
+    tokens = headline_word_tag_list.split(" ")
+
     #initialization of dictionary
-    for entry in headline_word_tag_list:
+    for entry in tokens:
+        word, tag = entry.rsplit('/', 1)
+        POS_LMProbablity[tag] = {}
+
+
+    for entry in tokens:
         word, tag = entry.rsplit('/', 1)
         prev = cur
         cur = next
         next = tag
-        POS_LMProbablity[prev] = {}
 
-        if cur in POS_LMProbablity[prev]:
-            if next in POS_LMProbablity[prev][cur]:
-                POS_LMProbablity[prev][cur][next]+=1
-            else:
-                POS_LMProbablity[prev][cur][next] =1
+        if prev in POS_LMProbablity:
+
+                if cur in POS_LMProbablity[prev]:
+
+                    if next in POS_LMProbablity[prev][cur]:
+
+                        POS_LMProbablity[prev][cur][next]+=1
+                    else:
+                        POS_LMProbablity[prev][cur][next] =1
+
+                else:
+
+                    POS_LMProbablity[prev][cur]={}
+                    if next in POS_LMProbablity[prev][cur]:
+
+                        POS_LMProbablity[prev][cur][next]+=1
+                    else:
+                        POS_LMProbablity[prev][cur][next] =1
+
         else:
-            POS_LMProbablity[prev][cur][next] =1
+             POS_LMProbablity[prev]={}
+             if cur in POS_LMProbablity[prev]:
 
+                    if next in POS_LMProbablity[prev][cur]:
+
+                        POS_LMProbablity[prev][cur][next]+=1
+                    else:
+                        POS_LMProbablity[prev][cur][next] =1
+
+             else:
+
+                    POS_LMProbablity[prev][cur]={}
+                    if next in POS_LMProbablity[prev][cur]:
+
+                        POS_LMProbablity[prev][cur][next]+=1
+                    else:
+                        POS_LMProbablity[prev][cur][next] =1
+
+        count = count+1
 
 
     return POS_LMProbablity
@@ -75,23 +114,35 @@ def generate_bigram_counts(headline_word_tag_list):
     """ Returns a dictionary with bigram score of each word pair
     """
 
-    POS_LMProbablity={}
     count = 0
     prev = "start"
     cur = "start"
     POS_LMProbablity={}
+    tokens = headline_word_tag_list.split(" ")
+    unique_tags = set()
+
     #initialization of dictionary
-    for entry in headline_word_tag_list:
+    for entry in tokens:
+        word, tag = entry.rsplit('/', 1)
+        POS_LMProbablity[tag] = {}
+        unique_tags.add(tag)
+
+    for entry in tokens:
         word, tag = entry.rsplit('/', 1)
         prev = cur
         cur = tag
-        POS_LMProbablity[prev] = {}
+        if prev in POS_LMProbablity:
 
-        if cur in POS_LMProbablity[prev]:
-            POS_LMProbablity[prev][cur]+=1
+            if cur in POS_LMProbablity[prev]:
+                POS_LMProbablity[prev][cur]+=1
+            else:
+                POS_LMProbablity[prev][cur] =1
         else:
-            POS_LMProbablity[prev][cur] =1
-
+            POS_LMProbablity[prev] = {}
+            if cur in POS_LMProbablity[prev]:
+                POS_LMProbablity[prev][cur]+=1
+            else:
+                POS_LMProbablity[prev][cur] =1
     return POS_LMProbablity
 
 def compute_content_selection_feature(headline_word_tag_list):
