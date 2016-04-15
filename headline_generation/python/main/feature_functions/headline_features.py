@@ -2,14 +2,97 @@
 """List of features used:
 1. Language model features
 2. Headline Length feature
+3. Part of Speech Language Model Feature
 
 To add:
-3. N-Gram Match feature
-4. Content selection feature
-5. Part of Speech Language Model Feature
+4. N-Gram Match feature
+5. Content selection feature
 
 """
 import math
+
+def compute_POS_language_feature(headline_word_tag_list):
+    """ Returns POS language model feature value for the headline
+    """
+    POSLM_feature = 0
+    trigram_dict = generate_trigram_counts(headline_word_tag_list)
+    bigram_dict = generate_bigram_counts(headline_word_tag_list)
+    prev = "start"
+    cur = "start"
+    next = "start"
+    count = 1
+
+    #initialization of dictionary
+    for entry in headline_word_tag_list:
+        word, tag = entry.rsplit('/', 1)
+        if count>2 :
+            probablity = (trigram_dict[prev][cur][next])/float(bigram_dict[prev][cur])
+            POSLM_feature = math.log(probablity, 10)
+        prev = cur
+        cur = next
+        next = tag
+        count = count+1
+    return POSLM_feature
+
+
+def generate_trigram_counts(headline_word_tag_list):
+    """ Returns a dictionary with bigram score of each word pair
+    """
+
+    POS_LMProbablity={}
+    count = 0
+    prev = "start"
+    cur = "start"
+    next = "start"
+    POS_LMProbablity={}
+    #initialization of dictionary
+    for entry in headline_word_tag_list:
+        word, tag = entry.rsplit('/', 1)
+        prev = cur
+        cur = next
+        next = tag
+        POS_LMProbablity[prev] = {}
+
+        if cur in POS_LMProbablity[prev]:
+            if next in POS_LMProbablity[prev][cur]:
+                POS_LMProbablity[prev][cur][next]+=1
+            else:
+                POS_LMProbablity[prev][cur][next] =1
+        else:
+            POS_LMProbablity[prev][cur][next] =1
+
+
+
+    return POS_LMProbablity
+
+
+
+
+
+
+
+def generate_bigram_counts(headline_word_tag_list):
+    """ Returns a dictionary with bigram score of each word pair
+    """
+
+    POS_LMProbablity={}
+    count = 0
+    prev = "start"
+    cur = "start"
+    POS_LMProbablity={}
+    #initialization of dictionary
+    for entry in headline_word_tag_list:
+        word, tag = entry.rsplit('/', 1)
+        prev = cur
+        cur = tag
+        POS_LMProbablity[prev] = {}
+
+        if cur in POS_LMProbablity[prev]:
+            POS_LMProbablity[prev][cur]+=1
+        else:
+            POS_LMProbablity[prev][cur] =1
+
+    return POS_LMProbablity
 
 def compute_content_selection_feature(headline_word_tag_list):
     """ Returns content selection score of the given headline
