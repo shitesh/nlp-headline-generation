@@ -82,7 +82,7 @@ def cal_totalwords(file):
 #caluclate the word range for the file this ca
 
 def word_range(file):
-    """Return the dict contain the lead postion of the words in the file i.e if the word is present in the first sentence or not
+    """Return the dict contain the the postion of all the words and their current position in thier sentence 
     """
     fop= codecs.open(file, 'r', encoding='utf-8')
     position_parameters={}
