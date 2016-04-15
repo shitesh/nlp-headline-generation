@@ -17,6 +17,7 @@ def get_outcome(word, heading):
     """Returns if the word is present in heading or not.
 
     """
+    word = word.rsplit('/',1) [0]
     if word in heading:
         return 1
     return 0
