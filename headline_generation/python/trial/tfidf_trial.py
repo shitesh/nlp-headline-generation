@@ -23,9 +23,6 @@ def generate_tfidf_values(all_text):
     stop_words = [word.strip() for word in stop_words]
     tfidf = TfidfVectorizer(tokenizer=tokenise, stop_words=stop_words)
     tfidf.fit_transform(all_text)
-    for name in tfidf.get_feature_names():
-        print name
-
 
 
 def read_file(file_location):
@@ -41,9 +38,10 @@ all_text.append(read_file('hindi_train2.txt'))
 
 generate_tfidf_values(all_text)
 
-check = u"रमजान शुरू होते ही इस इलाके में तड़के सुबह लोगों की भीड़ नजर आ जाती है।"
+check = u"सुबहas"
 response = tfidf.transform([check])
 print response
+print response.nonzero()[1]
 feature_names = tfidf.get_feature_names()
 for col in response.nonzero()[1]:
     print feature_names[col], ' - ', response[0, col]
