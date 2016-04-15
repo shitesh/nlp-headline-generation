@@ -123,13 +123,21 @@ def compute_language_model_probablity(headline_word_tag_list):
     """
     prev = "start"
     cur = "start"
+
     LMProbablity={}
+
     #initialization of dictionary
-    for entry in headline_word_tag_list:
+    tokens = headline_word_tag_list.split(" ")
+
+    for entry in tokens:
+        word, tag = entry.rsplit('/', 1)
+        LMProbablity[word] = {}
+
+    #calculates the word given previous word probablity
+    for entry in tokens:
         word, tag = entry.rsplit('/', 1)
         prev = cur
         cur = word
-        LMProbablity[cur] = {}
         if 'CurrentWordCount' in LMProbablity[cur]:
             LMProbablity[cur]['CurrentWordCount']+=1
         else:
@@ -140,15 +148,15 @@ def compute_language_model_probablity(headline_word_tag_list):
         else:
             LMProbablity[cur][prev] =1
     count = 1
-    #update the probablity for words that don't exist and compute probablities
+    #update the probablity for words that don't exist and compute probabilities
     prev = "start"
     cur = "start"
-    for entry in headline_word_tag_list:
+    for entry in tokens:
         word, tag = entry.rsplit('/', 1)
         LMProbablity[word]['others'] = 1/float(LMProbablity[word]['CurrentWordCount'])
         if count !=1:
             transition_prob = LMProbablity[cur][prev]
-            LMProbablity[cur][prev] = transition_prob/float(LMProbablity[cur]['CurrentWordCount'])
+            LMProbablity[cur][prev] = transition_prob/float(LMProbablity[prev]['CurrentWordCount'])
         prev = cur
         cur = word
 
@@ -156,20 +164,29 @@ def compute_language_model_probablity(headline_word_tag_list):
 
 
 
+
+
+
 def get_language_model(headline):
     """Returns the language model value
     """
     LMProbablity = compute_language_model_probablity(headline)
+
     prev = "start"
     cur = "start"
     headline =  headline.strip()
     WordOfLine = headline.split()
     count = 1
     LM_value = 0
-    for entry in WordOfLine:
+    tokens = headline.split(" ")
+    for entry in tokens:
         word, tag = entry.rsplit('/', 1)
         if count != 1:
-            LM_value += math.log(LMProbablity[cur][prev], 10)
+            if prev in LMProbablity[cur]:
+                LM_value += math.log(LMProbablity[cur][prev], 10)
+            #if word given previous word probablity does not exist we use others value as smoothing measure
+            else:
+                LM_value += math.log(LMProbablity[cur]['others'], 10)
         prev = cur
         cur = word
         count= count+1
