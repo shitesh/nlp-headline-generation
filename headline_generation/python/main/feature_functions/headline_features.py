@@ -1,9 +1,35 @@
 # define all the feature functions here
 """List of features used:
 1. Language model features
+2. Headline Length feature
+
+To add:
+3. N-Gram Match feature
+4. Content selection feature
+5. Part of Speech Language Model Feature
 
 """
 import math
+
+def compute_content_selection_feature(headline_word_tag_list):
+    """ Returns content selection score of the given headline
+    """
+
+
+def compute_headline_length_feature(headline_word_tag_list):
+    """
+    computes the log of headline length and returns the value
+    """
+    Length_feature = 0
+    count = 1
+    for entry in headline_word_tag_list:
+        word, tag = entry.rsplit('/', 1)
+        count = count+1
+    Length_feature = math.log(Length_feature, 10)
+    return Length_feature
+
+
+
 
 
 def compute_language_model_probablity(headline_word_tag_list):
