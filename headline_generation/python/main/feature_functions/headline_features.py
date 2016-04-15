@@ -1,14 +1,14 @@
 # define all the feature functions here
-"""List of features used:
+"""
+List of features used:
 1. Language model features
 2. Headline Length feature
 3. Part of Speech Language Model Feature
-
 To add:
 4. N-Gram Match feature
 5. Content selection feature
-
 """
+
 import math
 
 def compute_POS_language_feature(headline_word_tag_list):
@@ -104,11 +104,12 @@ def compute_headline_length_feature(headline_word_tag_list):
     computes the log of headline length and returns the value
     """
     Length_feature = 0
-    count = 1
-    for entry in headline_word_tag_list:
+    count = 0
+    tokens = headline_word_tag_list.split(" ")
+    for entry in tokens:
         word, tag = entry.rsplit('/', 1)
         count = count+1
-    Length_feature = math.log(Length_feature, 10)
+    Length_feature = math.log(count, 10)
     return Length_feature
 
 
