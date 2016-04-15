@@ -11,7 +11,6 @@ lmda = [] #headline synthesis para-meter list
 P_wt = []
 P_lm = []
 P_pos_lm = []
-P_len = []
 
 def top_T_headlines():
 #Initialize prioity_queue
