@@ -106,7 +106,7 @@ def process_sentence(sentence, file_level_dict, word_dict):
 
         output = classifier.prob_classify(feature_dict)
 
-        if output.prob(1) > 0.4:
+        if output.prob(1) > 0.0:
             headline_words.append((words[index], output.prob(1)))
 
     return headline_words
