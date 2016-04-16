@@ -11,8 +11,11 @@ List of features used:
 
 import math
 
+#model feature tuple
+feature_values = []
+
 #structures for headline length feature
-unique_length_count =0  # range considered is 3 to 15(13 values )
+Unique_length_count =0  # range considered is 3 to 15(13 values )
 headline_length_count = {}
 headline_length_probablity = {}
 #structures for language model feature
@@ -201,6 +204,7 @@ def compute_trigram_counts(headline_word_tag_list):
     global trigram_model_count,unique_trigram_pos_count
     local_trigram_count = 0
     lc = 0
+    #print headline_word_tag_list
     for headline in headline_word_tag_list:
         local_trigram_count+= 1
         #print str(local_trigram_count)+")current line:"+headline
@@ -209,6 +213,7 @@ def compute_trigram_counts(headline_word_tag_list):
         prev = "start"
         cur = "start"
         next = "start"
+        #print "line:"+headline
         for entry in tokens:
             word, tag = entry.rsplit('/', 1)
             prev = cur
@@ -277,8 +282,8 @@ def compute_pos_language_model(headline_word_tag_list):
             prev = cur
             cur = next
             next = tag
-            print "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
-            print "prev:"+prev+" cur:"+cur+" next:"+next+"my count:"+str(mycount)
+            #print "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+            #print "prev:"+prev+" cur:"+cur+" next:"+next+"my count:"+str(mycount)
 
             if mycount>1:
 
@@ -324,6 +329,11 @@ def compute_POS_language_feature(headline_word_tag_list):
     tokens = headline_word_tag_list.split(" ")
     for entry in tokens:
         word, tag = entry.rsplit('/', 1)
+        prev = cur
+        cur = next
+        next = tag
+        count = count+1
+        #print "prev:"+prev+" cur:"+cur+" next:"+next
         if count>2 :
             if prev in trigram_model_probablity:
                 if cur in trigram_model_probablity[prev]:
@@ -331,10 +341,7 @@ def compute_POS_language_feature(headline_word_tag_list):
                         probablity = trigram_model_probablity[prev][cur][next]
                         POSLM_feature =POSLM_feature+ math.log(probablity, 10)
 
-        prev = cur
-        cur = next
-        next = tag
-        count = count+1
+
     return POSLM_feature
 
 
@@ -372,30 +379,114 @@ def compute_language_model_feature(headline):
 
     total_word_count = 0
     for i in word_count:
-        total_word_count=total_word_count+i
+        total_word_count=total_word_count+word_count[i]
+   # print "total word count:"+str(total_word_count)
 
     prev = "start"
     cur = "start"
+
     headline =  headline.strip()
     WordOfLine = headline.split()
-    count = 1
+    mycount = 0
     LM_value = 0
     tokens = headline.split(" ")
     for entry in tokens:
         word, tag = entry.rsplit('/', 1)
-        if count != 1:
-            if prev in language_model_probablity:
-                if cur in language_model_probablity[prev]:
-                    LM_value += math.log(language_model_probablity[cur][prev], 10)
-                #if word given previous word probablity does not exist we use others value as smoothing measure
-                else:
-                     temp = 1/(word_count[prev])
-                     LM_value += math.log(temp, 10)
-            else:
-                temp = 1/(total_word_count)
-                LM_value += math.log(temp, 10)
         prev = cur
         cur = word
-        count= count+1
+        #print "in prev:"+prev+"cur:"+cur+"count:"+str(mycount)
+        mycount = mycount+1
+        if mycount>1:
+
+            if prev in language_model_probablity:
+
+
+                        if cur in language_model_probablity[prev]:
+
+
+                            LM_value = LM_value +math.log(language_model_probablity[prev][cur], 10)
+                            #print "log LMvalue:"+str(math.log(language_model_probablity[prev][cur],10))
+                        #if word given previous word probablity does not exist we use others value as smoothing measure
+                        else:
+                             temp = 1/(word_count[prev])
+                             LM_value += math.log(temp, 10)
+            else:
+                        temp = 1/(total_word_count)
+                        LM_value += math.log(temp, 10)
+
     return LM_value
+
+
+
+def get_headline_synthesis_features(headline_word_tag_list):
+    '''
+    calls the feature functions and stores feature values for the model in a tuple in the format
+    ({POSLM:"NN VB NN"},outcome,{headline_len,len_val},outcome,
+    '''
+    global headline_length_probablity,language_model_probablity,trigram_model_probablity,feature_values
+    compute_pos_language_model(headline_word_tag_list)
+    compute_language_model_probablity(headline_word_tag_list)
+    compute_headline_length_probablity(headline_word_tag_list)
+    #adding all features of one headline
+
+
+    for head in headline_word_tag_list:
+        #print "####################################################################################"
+        #print "line:"+head
+        count = 0
+        tokens = head.split(" ")
+        #adding feature 1
+        for entry in tokens:
+            word, tag = entry.rsplit('/', 1)
+            count = count+1
+        temp_dict = {}
+        temp_dict['headline_len'] = count
+
+        feature1 = (temp_dict,headline_length_probablity[count])
+        #print "current f1 value:"+str(feature1)
+
+        feature_values.append(feature1)
+
+        #adding feature 2
+        POSLM_feature = compute_POS_language_feature(head)
+        pos_string = ""
+        temp_dict = {}
+        #print "pos tag string:"+pos_string
+
+        #initialization of dictionary
+        #tokens = head.split(" ")
+        for entry in tokens:
+            word, tag = entry.rsplit('/', 1)
+            pos_string = pos_string+tag+" "
+        temp_dict['pos_LM']= pos_string
+        feature2 = (temp_dict,POSLM_feature)
+        feature_values.append(feature2)
+        #print temp_dict
+        #print "current f2 value:"+str(feature2)
+        #adding feature 3
+        LM_feature = compute_language_model_feature(head)
+        word_bigram_string = ""
+        temp_dict = {}
+        #print "word  string:"+word_bigram_string
+        prev = "start"
+        cur = "start"
+        lm = 0
+
+        #tokens = head.split(" ")
+        for entry in tokens:
+            word, tag = entry.rsplit('/', 1)
+            prev = cur
+            cur = word
+            word_bigram_string = word_bigram_string+" "+prev+"-"+cur
+
+        #print "word  string:"+word_bigram_string
+        LMvalue = compute_language_model_feature(head)
+        temp_dict['LM']= word_bigram_string
+        feature3 =(temp_dict,LMvalue)
+        feature_values.append(feature3)
+        #print "current f3 value:"+str(feature3)
+        del feature1
+        del feature2
+        del feature3
+        #print feature_values
 
