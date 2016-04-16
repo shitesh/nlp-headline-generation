@@ -88,6 +88,7 @@ def compute_word_count(headline_word_tag_list):
 
 
 
+
 def compute_language_model_counts(headline_word_tag_list):
     """
     Input: A list with each entry having headline from input corpus
@@ -95,23 +96,22 @@ def compute_language_model_counts(headline_word_tag_list):
     """
     global language_model_count,unique_bigram_count
 
-    prev = "start"
-    cur = "start"
 
     for headline in headline_word_tag_list:
         tokens = headline.split(" ")
+        prev = "start"
+        cur = "start"
         for entry in tokens:
             word, tag = entry.rsplit('/', 1)
             prev = cur
             cur = word
-            if prev in language_model_count:
 
+            if prev in language_model_count:
                 if cur in language_model_count[prev]:
                     language_model_count[prev][cur]+=1
                 else:
                     language_model_count[prev][cur] =1
             else:
-                unique_bigram_count = unique_bigram_count+1
                 language_model_count[prev] = {}
                 if cur in language_model_count[prev]:
                     language_model_count[prev][cur]+=1
@@ -127,27 +127,31 @@ def compute_language_model_probablity(headline_word_tag_list):
 
     compute_word_count(headline_word_tag_list)
     compute_language_model_counts(headline_word_tag_list)
-
-    prev = "start"
-    cur = "start"
     language_model_probablity = dict(language_model_count)
 
     for headline in headline_word_tag_list:
+
         tokens = headline.split(" ")
+        prev = "start"
+        cur = "start"
+        mycount = 0
         for entry in tokens:
+            mycount= mycount+1
             word, tag = entry.rsplit('/', 1)
             prev = cur
             cur = word
-            if prev in language_model_probablity:
 
-                if cur in language_model_probablity[prev]:
-                    language_model_probablity[prev][cur] = (language_model_count[prev][cur])/float(word_count[prev])
+            if mycount >= 2:
+                if prev in language_model_probablity:
+                    if cur in language_model_probablity[prev]:
+                        language_model_probablity[prev][cur] = (language_model_count[prev][cur])/float(word_count[prev])
+                    else:
+                        language_model_probablity[prev][cur] =(language_model_count[prev][cur])/float(word_count[prev])
                 else:
-                    language_model_probablity[prev][cur] =(language_model_count[prev][cur])/float(word_count[prev])
-            else:
 
-                language_model_probablity[prev] = {}
-                language_model_probablity[prev][cur] =(1)/float(word_count[prev])
+                    language_model_probablity[prev] = {}
+                    language_model_probablity[prev][cur] =(1)/float(word_count[prev])
+
 
 
 
