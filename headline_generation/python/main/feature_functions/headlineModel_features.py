@@ -155,31 +155,29 @@ def compute_language_model_probablity(headline_word_tag_list):
 
 
 
-
 def compute_bigram_counts(headline_word_tag_list):
     """
     Input: A list with each entry having headline from input corpus
     operation: computes the language model counts for each article bigram  and stores the probablity for each bigram POSin  dictionary
     """
-    global bigram_model_count,unique_bigram_pos_count
 
-    prev = "start"
-    cur = "start"
+    global bigram_model_count,unique_bigram_pos_count
 
     for headline in headline_word_tag_list:
         tokens = headline.split(" ")
+        prev = "start"
+        cur = "start"
         for entry in tokens:
             word, tag = entry.rsplit('/', 1)
             prev = cur
             cur = tag
-            if prev in bigram_model_count:
 
+            if prev in bigram_model_count:
                 if cur in bigram_model_count[prev]:
                     bigram_model_count[prev][cur]+=1
                 else:
                     bigram_model_count[prev][cur] =1
             else:
-                unique_bigram_pos_count = unique_bigram_pos_count+1
                 bigram_model_count[prev] = {}
                 if cur in bigram_model_count[prev]:
                     bigram_model_count[prev][cur]+=1
@@ -187,67 +185,65 @@ def compute_bigram_counts(headline_word_tag_list):
                     bigram_model_count[prev][cur] =1
 
 
+
+
 def compute_trigram_counts(headline_word_tag_list):
     """
     Input: A list with each entry having headline from input corpus
     operation: computes the language model counts for each article trigram  and stores the probablity for each trigram POS in  dictionary
     """
+
     global trigram_model_count,unique_trigram_pos_count
-
-    prev = "start"
-    cur = "start"
-    next = "start"
-
+    local_trigram_count = 0
+    lc = 0
     for headline in headline_word_tag_list:
+        local_trigram_count+= 1
+        #print str(local_trigram_count)+")current line:"+headline
+
         tokens = headline.split(" ")
+        prev = "start"
+        cur = "start"
+        next = "start"
         for entry in tokens:
             word, tag = entry.rsplit('/', 1)
-        prev = cur
-        cur = next
-        next = tag
+            prev = cur
+            cur = next
+            next = tag
 
-        if prev in trigram_model_count:
-
+            #print "LC:"+str(lc)
+            if prev in trigram_model_count:
+               # print "in if"
                 if cur in trigram_model_count[prev]:
-
+                   # print "in if if"
                     if next in trigram_model_count[prev][cur]:
-
-                        trigram_model_count[prev][cur][next]+=1
+                       # print "in if if if"
+                        trigram_model_count[prev][cur][next]= trigram_model_count[prev][cur][next]+1
+                        #print "dict:"+str(trigram_model_count)
                     else:
-                        unique_trigram_pos_count = unique_trigram_pos_count+1
-                        trigram_model_count[prev][cur][next] =1
+                        #unique_trigram_pos_count = unique_trigram_pos_count+1
+                       # print "in if if else"
+                        trigram_model_count[prev][cur]={}
+                        trigram_model_count[prev][cur][next]=1
+                        #print "dict:"+str(trigram_model_count)
 
                 else:
+                    #print "in if else"
 
                     trigram_model_count[prev][cur]={}
-                    if next in trigram_model_count[prev][cur]:
+                    trigram_model_count[prev][cur][next] =1
+                    #print "dict:"+str(trigram_model_count)
+            else:
+                #print "in else"
+                trigram_model_count[prev] = {}
+                trigram_model_count[prev][cur]={}
+                trigram_model_count[prev][cur][next] =1
+                #print "dict:"+str(trigram_model_count)
 
-                        trigram_model_count[prev][cur][next]+=1
-                    else:
-                        unique_trigram_pos_count = unique_trigram_pos_count+1
-                        trigram_model_count[prev][cur][next] =1
+            lc+=1
+        #print "########################################################################"
 
-        else:
 
-             trigram_model_count[prev]={}
-             if cur in trigram_model_count[prev]:
 
-                    if next in trigram_model_count[prev][cur]:
-
-                        trigram_model_count[prev][cur][next]+=1
-                    else:
-                        unique_trigram_pos_count = unique_trigram_pos_count+1
-                        trigram_model_count[prev][cur][next] =1
-
-             else:
-
-                    trigram_model_count[prev][cur]={}
-                    if next in trigram_model_count[prev][cur]:
-
-                        trigram_model_count[prev][cur][next]+=1
-                    else:
-                        unique_trigram_pos_count = unique_trigram_pos_count+1
-                        trigram_model_count[prev][cur][next] =1
 
 
 # P( wi | wi-1 wi-2 ) = count ( wi, wi-1, wi-2 ) / count ( wi-1, wi-2 )
@@ -259,61 +255,56 @@ def compute_pos_language_model(headline_word_tag_list):
     operation: computes the language model probablity for each trigrams of POS  and stores the probablity for each trigram POS in  dictionary
 
     """
-    global trigram_model_probablity,trigram_model_count,trigram_model_probablity
+    global trigram_model_probablity,trigram_model_count,trigram_model_probablity,bigram_model_count
     compute_trigram_counts(headline_word_tag_list)
     compute_bigram_counts(headline_word_tag_list)
 
     trigram_model_probablity = dict(trigram_model_count)
-
-    prev = "start"
-    cur = "start"
-    next = "start"
-    #count =0
-
-    total_trigram_count = 0
-
-    #computes total trigram in the dataset
-    # for tag1 in trigram_model_count:
-    #     if tag1 == 'start':
-    #         continue
-    #     for tag2 in trigram_model_count[tag1]:
-    #         if tag2 == 'start':
-    #             continue
-    #
-    #         for tag3 in trigram_model_count[tag1][tag2]:
-    #             if tag3 == 'start':
-    #                   continue
-    #             total_trigram_count = total_trigram_count+trigram_model_count[tag1][tag2][tag3]
-
-
-
     # computes POS language model probablity
     for headline in headline_word_tag_list:
+        prev = "start"
+        cur = "start"
+        next = "start"
         tokens = headline.split(" ")
+        mycount = 0
         for entry in tokens:
             word, tag = entry.rsplit('/', 1)
             prev = cur
             cur = next
             next = tag
+            print "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+            print "prev:"+prev+" cur:"+cur+" next:"+next+"my count:"+str(mycount)
 
-            if prev in trigram_model_probablity:
+            if mycount>1:
 
-                        if cur in trigram_model_probablity[prev]:
+                if prev in trigram_model_probablity:
 
-                            if next in trigram_model_probablity[prev][cur]:
-                                trigram_model_probablity[prev][cur][next] = (trigram_model_count[prev][cur][next])/float(bigram_model_count[prev][cur])
-                            else:
-                                #unique_trigram_pos_count = unique_trigram_pos_count+1
-                                trigram_model_probablity[prev][cur][next] = (1)/float(bigram_model_count[prev][cur])
-                        else:
-                                trigram_model_probablity[prev][cur]={}
-                                trigram_model_probablity[prev][cur][next] = (1)/float(bigram_model_count[prev][cur])
+                            if cur in trigram_model_probablity[prev]:
 
-            else:
+                                if next in trigram_model_probablity[prev][cur]:
 
-                 trigram_model_probablity[prev]={}
-                 trigram_model_probablity[prev][cur]={}
-                 trigram_model_probablity[prev][cur][next] =(1)/float(bigram_model_count[prev][cur])
+                                    temp = (trigram_model_count[prev][cur][next])/float(bigram_model_count[prev][cur])
+                                    trigram_model_probablity[prev][cur][next] = temp
+
+
+                #                 else:
+                #                     print "in if if else"
+                #                     #unique_trigram_pos_count = unique_trigram_pos_count+1
+                #                     trigram_model_probablity[prev][cur][next] = (1)/float(bigram_model_count[prev][cur])
+                #             else:
+                #                     print "in if else"
+                #                     trigram_model_probablity[prev][cur]={}
+                #                     trigram_model_probablity[prev][cur][next] = (1)/float(bigram_model_count[prev][cur])
+                #
+                # else:
+                #      print "in else"
+                #      trigram_model_probablity[prev]={}
+                #      trigram_model_probablity[prev][cur]={}
+                #      trigram_model_probablity[prev][cur][next] =(1)/float(bigram_model_count[prev][cur])
+            mycount+=1
+
+
+
 
 
 
