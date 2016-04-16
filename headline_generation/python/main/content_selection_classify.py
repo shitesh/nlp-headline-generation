@@ -1,14 +1,15 @@
 import codecs
 import pickle
 import sys
+import nltk
+import os
+import math
+import operator
 from feature_functions.features import get_feature_dict
 from content_selection_train import get_start_end_indices
 from feature_functions.file_level_features import get_word_range
 from feature_functions.tfidf_training import tokenise
 
-import nltk
-import os
-import math
 
 classifier = None
 tfidf_dict = {}
@@ -67,12 +68,13 @@ def get_tfidf_score(all_lines):
     return word_dict
 
 
-def get_file_level_details(file_path):
+def get_file_level_details(file_path, headers_present=True):
     global file_level_dict
     file = codecs.open(file_path, 'r', encoding='utf-8')
-    line = file.readline()
-    while line.strip() != '<text>':
+    if headers_present:
         line = file.readline()
+        while line.strip() != '<text>':
+            line = file.readline()
 
     all_lines = []
     for line in file:
@@ -89,7 +91,7 @@ def process_sentence(sentence, file_level_dict, word_dict):
     global classifier
     words = sentence.split()
 
-    headline_words = []
+    headline_words = {}
 
     for index in xrange(0, len(words)):
         start_index, end_index = get_start_end_indices(index, len(words))
@@ -107,20 +109,19 @@ def process_sentence(sentence, file_level_dict, word_dict):
         output = classifier.prob_classify(feature_dict)
 
         if output.prob(1) > 0.0:
-            headline_words.append((words[index], output.prob(1)))
+            headline_words[words[index]] = max(output.prob(1), headline_words.get(words[index], 0))
 
     return headline_words
 
-def classify(file_location):
+def classify_dev_file(file_location):
     global classifier
     file_level_dict, word_dict = get_file_level_details(file_location)
-
     file = codecs.open(file_location, 'r', encoding='utf-8')
     line = file.readline() # <headline>
 
     actual_headline = file.readline()
 
-    all_potention_headline_words = []
+    all_potention_headline_words = {}
     for line in file:
         line = line.strip()
         if line in ['</Headline>','<text>']:
@@ -131,17 +132,47 @@ def classify(file_location):
         for sentence in sentences:
             headline_words = process_sentence(sentence, file_level_dict, word_dict)
             if headline_words:
-                all_potention_headline_words.extend(headline_words)
+                for key, value in headline_words.iteritems():
+                    all_potention_headline_words[key] = max(value, all_potention_headline_words.get(key, 0))
 
-    return actual_headline, set(all_potention_headline_words)
+    return actual_headline.replace('\x01', ''), all_potention_headline_words
+
+
+def classify_new_file(file_path):
+    file_level_dict, word_dict = get_file_level_details(file_path, False)
+    all_potention_headline_words = {}
+
+    file = codecs.open(file_path, 'r', encoding='utf-8')
+    for line in file:
+        line = line.strip()
+        sentences = line.split('\x01')
+        for sentence in sentences:
+            headline_words = process_sentence(sentence, file_level_dict, word_dict)
+            if headline_words:
+                for key, value in headline_words.iteritems():
+                    all_potention_headline_words[key] = max(value, all_potention_headline_words.get(key, 0))
+
+    dict_unique_words = {}
+    sorted_headline_words = sorted(all_potention_headline_words.items(), key=operator.itemgetter(1), reverse=True)
+    top_20_words= {}
+    for entry in sorted_headline_words:
+        word_with_tag, value = entry
+        word = word_with_tag.rsplit('/', 1)[0]
+        if word not in dict_unique_words:
+            dict_unique_words[word] = 1
+        top_20_words[word_with_tag] = value
+        if len(dict_unique_words) > 20:
+            break
+
+    return top_20_words
+
 
 if __name__ == '__main__':
-    print 'starting'
     initialise()
     out_file = codecs.open(sys.argv[2], 'w', encoding='utf-8')
     for file_name in os.listdir(sys.argv[1]):
         file_path = os.path.join(sys.argv[1], file_name)
-        x, y = classify(file_path)
+        x, y = classify_dev_file(file_path)
         out_file.write('%s\n' % file_name)
         out_file.write('%s\n\n' % x)
         for i in y:

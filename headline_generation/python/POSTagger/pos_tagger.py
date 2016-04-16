@@ -44,7 +44,6 @@ def parse_directory(input_directory, output_directory):
 
                 parts = line.split()
                 if '</Headline>' in tags and len(parts) < 5:
-                    print file_path, line
                     continue
 
                 line = line.decode('utf-8')
