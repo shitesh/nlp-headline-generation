@@ -9,6 +9,8 @@ List of features used:
 5. Content selection feature
 """
 
+import math
+
 #structures for headline length feature
 unique_length_count =0  # range considered is 3 to 15(13 values )
 headline_length_count = {}
@@ -26,6 +28,9 @@ bigram_model_count = {}
 unique_trigram_pos_count = 0
 trigram_model_count = {}
 trigram_model_probablity = {}
+
+
+
 
 
 
@@ -305,7 +310,92 @@ def compute_pos_language_model(headline_word_tag_list):
 
 
 
+def compute_POS_language_feature(headline_word_tag_list):
+    """ Returns POS language model feature value for the headline
+    """
+    global trigram_model_probablity
+    POSLM_feature = 0
+    prev = "start"
+    cur = "start"
+    next = "start"
+    count = 1
+
+    #initialization of dictionary
+    tokens = headline_word_tag_list.split(" ")
+    for entry in tokens:
+        word, tag = entry.rsplit('/', 1)
+        if count>2 :
+            if prev in trigram_model_probablity:
+                if cur in trigram_model_probablity[prev]:
+                    if next in trigram_model_probablity[prev][cur]:
+                        probablity = trigram_model_probablity[prev][cur][next]
+                        POSLM_feature =POSLM_feature+ math.log(probablity, 10)
+
+        prev = cur
+        cur = next
+        next = tag
+        count = count+1
+    return POSLM_feature
+
+
+def compute_headline_length_feature(headline_word_tag_list):
+    """
+    computes the log probablity of particular headline length and returns the value
+    """
+    global headline_length_probablity
+    Length_feature = 0
+    count = 0
+    total_no_of_headlines = 0
+    for i in headline_length_count:
+        total_no_of_headlines = total_no_of_headlines+headline_length_count[i]
+
+
+    tokens = headline_word_tag_list.split(" ")
+    for entry in tokens:
+        word, tag = entry.rsplit('/', 1)
+        count = count+1
+
+    if count in headline_length_probablity:
+        Length_feature = math.log(headline_length_probablity[count], 10)
+    else:
+        temp = 1/float(total_no_of_headlines)
+        Length_feature = math.log(temp,10)
+    return Length_feature
 
 
 
+
+def compute_language_model_feature(headline):
+    """Returns the language model feature value
+    """
+    global  language_model_probablity,word_count
+
+    total_word_count = 0
+    for i in word_count:
+        total_word_count=total_word_count+i
+
+    prev = "start"
+    cur = "start"
+    headline =  headline.strip()
+    WordOfLine = headline.split()
+    count = 1
+    LM_value = 0
+    tokens = headline.split(" ")
+    for entry in tokens:
+        word, tag = entry.rsplit('/', 1)
+        if count != 1:
+            if prev in language_model_probablity:
+                if cur in language_model_probablity[prev]:
+                    LM_value += math.log(language_model_probablity[cur][prev], 10)
+                #if word given previous word probablity does not exist we use others value as smoothing measure
+                else:
+                     temp = 1/(word_count[prev])
+                     LM_value += math.log(temp, 10)
+            else:
+                temp = 1/(total_word_count)
+                LM_value += math.log(temp, 10)
+        prev = cur
+        cur = word
+        count= count+1
+    return LM_value
 
