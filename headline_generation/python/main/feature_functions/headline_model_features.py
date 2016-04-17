@@ -487,56 +487,39 @@ def get_headline_synthesis_features(headline_word_tag_list):
         #print feature_values
     return feature_values
 
-	
-		
 
 def get_classification_dictionary(headline_word_tag_list):
     '''
     returns the list of the form
     {'headline_len': 3}, ({'pos_LM': 'NN VV MM '},'{'LM': ' start-a a-b b-c'},
     '''
-    local_dict = []
+    local_dict = {}
     count = 0
     tokens = headline_word_tag_list.split(" ")
     #adding feature 1
     for entry in tokens:
-            word, tag = entry.rsplit('/', 1)
-            count = count+1
-    temp_dict1 = {}
-    temp_dict1['headline_len'] = count
-    local_dict.append(temp_dict1)
+        count = count+1
+    local_dict['headline_len'] = count
 
     #adding feature 2
 
     pos_string = ""
-    temp_dict2 = {}
-
     for entry in tokens:
-            word, tag = entry.rsplit('/', 1)
-            pos_string = pos_string+tag+" "
-    temp_dict2['pos_LM']= pos_string
-    local_dict.append(temp_dict2)
-        #print temp_dict
-        #print "current f2 value:"+str(feature2)
-        #adding feature 3
+        word, tag = entry.rsplit('/', 1)
+        pos_string = pos_string+tag+" "
+    local_dict['pos_LM']= pos_string
+
     word_bigram_string = ""
-    temp_dict3 = {}
-        #print "word  string:"+word_bigram_string
     prev = "start"
     cur = "start"
     lm = 0
 
-    #tokens = head.split(" ")
     for entry in tokens:
-            word, tag = entry.rsplit('/', 1)
-            prev = cur
-            cur = word
-            word_bigram_string = word_bigram_string+" "+prev+"-"+cur
+        word, tag = entry.rsplit('/', 1)
+        prev = cur
+        cur = word
+        word_bigram_string = word_bigram_string+" "+prev+"-"+cur
 
-        #print "word  string:"+word_bigram_string
 
-    temp_dict3['LM']= word_bigram_string
-    local_dict.append(temp_dict3)
+    local_dict['LM']= word_bigram_string
     return local_dict
-
-	
