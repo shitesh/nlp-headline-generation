@@ -33,10 +33,6 @@ trigram_model_count = {}
 trigram_model_probablity = {}
 
 
-
-
-
-
 def compute_headline_length_counts(headline_word_tag_list):
     """
     Input: A list with each entry having headline from input corpus

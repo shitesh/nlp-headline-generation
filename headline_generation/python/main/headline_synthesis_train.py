@@ -42,7 +42,7 @@ def process_directory(input_directory):
         headline, word_dict = classify_dev_file(file_path)
 
         content_score = 0
-        for word in headline.replace('\x01', '').split():
+        for word in headline.split():
             # todo: recheck this, what if word is present in headline but not in text?
             content_score += word_dict.get(word, 0)
 
@@ -68,7 +68,7 @@ def process_directory(input_directory):
         headline_feature_set.append((output_dict, outcome))
 
     for score, count in dict_bleu.iteritems():
-        output_dict = {'content_score': score}
+        output_dict = {'bleu_score': score}
         outcome = float(count)/len(dict_content_score)
         headline_feature_set.append((output_dict, outcome))
 

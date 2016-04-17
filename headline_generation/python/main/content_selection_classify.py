@@ -90,8 +90,12 @@ def get_file_level_details(file_path, headers_present=True):
 
     all_lines = []
     for line in file:
+        line = line.strip()
+        if line == '</text>':
+            break
         parts = line.split('\x01')
         if parts:
+            parts = [part for part in parts if parts]
             all_lines.extend(parts)
 
     file_level_dict = get_word_range(all_lines)
@@ -191,4 +195,3 @@ def classify_new_file(file_path):
             break
 
     return top_20_words
-
