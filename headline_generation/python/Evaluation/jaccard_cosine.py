@@ -36,4 +36,3 @@ def text_to_vector(text):
      return Counter(words)
 
 if __name__=="__main__":
-    print "heelo"
