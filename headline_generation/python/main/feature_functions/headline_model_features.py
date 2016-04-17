@@ -496,7 +496,7 @@ def get_headline_synthesis_features(headline_word_tag_list):
 
 def get_classification_dictionary(headline_word_tag_list):
     '''
-    returns the dict with the form
+    returns the list of the form
     {'headline_len': 3}, ({'pos_LM': 'NN VV MM '},'{'LM': ' start-a a-b b-c'},
     '''
     local_dict = []
