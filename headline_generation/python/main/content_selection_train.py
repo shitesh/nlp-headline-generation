@@ -19,7 +19,13 @@ TFIDF_LOCATION = 'model/tfidf.pickle'
 
 nltk.config_megam('MEGAM/megam-64.opt')
 
+
 def get_start_end_indices(index, length):
+    """Returns the start and end indices given the current index.
+
+    For any word, the model is dependent on previous two words, previous two POS tags, next two words and next two POS
+     tags. This function helps in managing the corner cases near the beginning and end indices.
+    """
     start_index, end_index = index, index+1
     if index - 2 >= 0:
         start_index = index - 2
@@ -35,6 +41,10 @@ def get_start_end_indices(index, length):
 
 
 def initialise():
+    """Initialises the globally declared variables.
+
+    These variables are used throughout the file.
+    """
     global tfidf_dict, stop_word_list
 
     file = codecs.open(STOP_WORD_FILE_LOCATION, 'r', encoding='utf-8')
@@ -49,6 +59,10 @@ def initialise():
 
 
 def get_tfidf_score(all_lines):
+    """For an entire file text, returns a dictionary mapping word to range of tf-idf values it belongs to.
+
+    This information is used as a part of feature function.
+    """
     global tfidf_dict
 
     word_dict = {}
@@ -79,6 +93,10 @@ def get_tfidf_score(all_lines):
 
 
 def get_file_level_details(file_path):
+    """Returns file level feature functions details.
+
+    These are used as a part of the feature functions for querying the models.
+    """
     file = codecs.open(file_path, 'r', encoding='utf-8')
     line = file.readline()
     while line.strip() != '<text>':
@@ -97,6 +115,10 @@ def get_file_level_details(file_path):
 
 
 def process_sentence(sentence, headline, file_level_dict, word_dict):
+    """For the sentence passed, generates the feature sets for all the words present in the sentence.
+
+    The generated feature set is used to train the model.
+    """
     global feature_set, stop_word_list
 
     if not sentence:
@@ -122,6 +144,9 @@ def process_sentence(sentence, headline, file_level_dict, word_dict):
 
 
 def process_input_directory(directory):
+    """Processes the entire directory passed as input to generate the feature values.
+
+    """
     count = 0
     error = open('error.txt', 'w')
     for file_name in os.listdir(directory):
@@ -154,12 +179,17 @@ def process_input_directory(directory):
 
 
 def train_model():
-    global classifier, feature_set
+    """Trains the model using the feature set generated above.
 
+    """
+    global classifier, feature_set
     classifier = MaxentClassifier.train(feature_set, "megam")
 
 
 def save_classifier():
+    """Saves the model so that it can be used without re-running the training part again.
+
+    """
     global classifier
     out_file = open('model/content_selection.pickle', 'wb')
     pickle.dump(classifier, out_file)

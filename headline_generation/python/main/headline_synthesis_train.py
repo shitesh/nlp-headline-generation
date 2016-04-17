@@ -1,15 +1,22 @@
 import codecs
 import sys
+import nltk
 import os
 import pickle
 from content_selection_classify import *
 from feature_functions.BLEU_comparison import get_bleu_score
+from feature_functions.headline_model_features import get_headline_synthesis_features
 from nltk import MaxentClassifier
 
 headline_feature_set = []
 headline_classifier = None
+nltk.config_megam('MEGAM/megam-64.opt')
+
 
 def get_bleu_score_probability(file_location):
+    """For the passed input file, returns the bleu score of the headline with reference to the text.
+
+    """
     file = codecs.open(file_location, 'r', encoding='utf-8')
     line = file.readline() # <headline>
     actual_headline = file.readline()
@@ -22,16 +29,22 @@ def get_bleu_score_probability(file_location):
 
 
 def process_directory(input_directory):
+    """Processes the entire directory passed as input to generate the feature values.
+
+    """
+    global headline_feature_set
     all_headlines = []
     dict_content_score = {}
     dict_bleu = {}
     for file_name in os.listdir(input_directory):
+        print file_name
         file_path = os.path.join(input_directory, file_name)
         headline, word_dict = classify_dev_file(file_path)
 
-        content_score = {}
+        content_score = 0
         for word in headline.replace('\x01', '').split():
-            content_score += word_dict[word]
+            # todo: recheck this, what if word is present in headline but not in text?
+            content_score += word_dict.get(word, 0)
 
         if content_score in dict_content_score:
             dict_content_score[content_score] += 1
@@ -45,35 +58,41 @@ def process_directory(input_directory):
         else:
             dict_bleu[bleu_score] = 1
 
-        all_headlines.append((headline, word_dict))
+        all_headlines.append(headline)
 
+    headline_feature_set = get_headline_synthesis_features(all_headlines)
 
     for score, count in dict_content_score.iteritems():
         output_dict = {'content_score':  score}
         outcome = float(count)/len(dict_content_score)
+        headline_feature_set.append((output_dict, outcome))
 
     for score, count in dict_bleu.iteritems():
         output_dict = {'content_score': score}
         outcome = float(count)/len(dict_content_score)
+        headline_feature_set.append((output_dict, outcome))
 
 
 def train():
+    """Trains the model using the feature set generated above.
+
+    """
     global headline_classifier, headline_feature_set
-    classifier = MaxentClassifier.train(headline_feature_set, "megam")
+    headline_classifier = MaxentClassifier.train(headline_feature_set, "megam")
 
 
 def save():
+    """Saves the model so that it can be used without re-running the training part again.
+
+    """
     global headline_classifier
     out_file = open('model/headline_synthesis.pickle', 'wb')
-    pickle.dump(classifier, out_file)
+    pickle.dump(headline_classifier, out_file)
     out_file.close()
 
 
 if __name__ == '__main__':
     initialise()
-    print 'processing directory'
     process_directory(sys.argv[1])
-    print 'training'
     train()
-    print 'saving'
     save()

@@ -16,11 +16,16 @@ tfidf_dict = {}
 stop_word_list = []
 
 STOP_WORD_FILE_LOCATION = 'feature_functions/hindi_stopwords.txt'
+# use megam to make the learning process faster
 nltk.config_megam('MEGAM/megam-64.opt')
 TFIDF_LOCATION = 'model/tfidf.pickle'
 
 
 def initialise():
+    """Initialises the globally declared variables.
+
+    These variables are used throughout the file.
+    """
     global classifier, tfidf_dict, stop_word_list
     file = open('model/content_selection.pickle')
     classifier = pickle.load(file)
@@ -39,10 +44,13 @@ def initialise():
 
 
 def get_tfidf_score(all_lines):
+    """For an entire file text, returns a dictionary mapping word to range of tf-idf values it belongs to.
+
+    This information is used as a part of feature function.
+    """
     global tfidf_dict
 
     word_dict = {}
-
     for line in all_lines:
         word_list = line.split()
         for word in word_list:
@@ -69,6 +77,10 @@ def get_tfidf_score(all_lines):
 
 
 def get_file_level_details(file_path, headers_present=True):
+    """Returns file level feature functions details.
+
+    These are used as a part of the feature functions for querying the models.
+    """
     global file_level_dict
     file = codecs.open(file_path, 'r', encoding='utf-8')
     if headers_present:
@@ -88,6 +100,10 @@ def get_file_level_details(file_path, headers_present=True):
 
 
 def process_sentence(sentence, file_level_dict, word_dict):
+    """For the sentence passed, returns the words along with the probabilities of each word to be present in headline.
+
+    Uses the content generation model trained before to get the probability.
+    """
     global classifier
     words = sentence.split()
 
@@ -113,7 +129,12 @@ def process_sentence(sentence, file_level_dict, word_dict):
 
     return headline_words
 
+
 def classify_dev_file(file_location):
+    """For given file path, returns a dictionary of all the words along with the probability value.
+
+    This function is called by headline synthesis process during training and so return value consists of all the words.
+    """
     global classifier
     file_level_dict, word_dict = get_file_level_details(file_location)
     file = codecs.open(file_location, 'r', encoding='utf-8')
@@ -139,6 +160,11 @@ def classify_dev_file(file_location):
 
 
 def classify_new_file(file_path):
+    """This function is called by decoding algorithm.
+
+    For given input file, it returns a dictionary of 20 words along with their associated probability which are most
+    suitable to be included in the headline.
+    """
     file_level_dict, word_dict = get_file_level_details(file_path, False)
     all_potention_headline_words = {}
 
@@ -166,15 +192,3 @@ def classify_new_file(file_path):
 
     return top_20_words
 
-
-if __name__ == '__main__':
-    initialise()
-    out_file = codecs.open(sys.argv[2], 'w', encoding='utf-8')
-    for file_name in os.listdir(sys.argv[1]):
-        file_path = os.path.join(sys.argv[1], file_name)
-        x, y = classify_dev_file(file_path)
-        out_file.write('%s\n' % file_name)
-        out_file.write('%s\n\n' % x)
-        for i in y:
-            out_file.write('%s,  %s\n' % (i[0], i[1]))
-    out_file.close()
