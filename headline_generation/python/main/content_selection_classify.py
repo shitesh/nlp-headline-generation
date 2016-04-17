@@ -6,7 +6,7 @@ import os
 import math
 import operator
 from feature_functions.features import get_feature_dict
-from content_selection_train import get_start_end_indices
+#from content_selection_train import get_start_end_indices
 from feature_functions.file_level_features import get_word_range
 from feature_functions.tfidf_training import tokenise
 
@@ -16,9 +16,28 @@ tfidf_dict = {}
 stop_word_list = []
 
 STOP_WORD_FILE_LOCATION = 'feature_functions/hindi_stopwords.txt'
-# use megam to make the learning process faster
-nltk.config_megam('MEGAM/megam-64.opt')
 TFIDF_LOCATION = 'model/tfidf.pickle'
+
+
+def get_start_end_indices(index, length):
+    """Returns the start and end indices given the current index.
+
+    For any word, the model is dependent on previous two words, previous two POS tags, next two words and next two POS
+     tags. This function helps in managing the corner cases near the beginning and end indices.
+    """
+    start_index, end_index = index, index+1
+    if index - 2 >= 0:
+        start_index = index - 2
+    elif index - 1 >= 0:
+        start_index = index - 1
+
+    if index + 2 <= length - 1:
+        end_index = index+3
+    elif index+1 <= length - 1:
+        end_index = index+2
+
+    return start_index, end_index
+
 
 
 def initialise():
@@ -146,7 +165,7 @@ def classify_dev_file(file_location):
 
     actual_headline = file.readline()
 
-    all_potention_headline_words = {}
+    all_potential_headline_words = {}
     for line in file:
         line = line.strip()
         if line in ['</Headline>','<text>']:
@@ -158,9 +177,9 @@ def classify_dev_file(file_location):
             headline_words = process_sentence(sentence, file_level_dict, word_dict)
             if headline_words:
                 for key, value in headline_words.iteritems():
-                    all_potention_headline_words[key] = max(value, all_potention_headline_words.get(key, 0))
+                    all_potential_headline_words[key] = max(value, all_potential_headline_words.get(key, 0))
 
-    return actual_headline.replace('\x01', ''), all_potention_headline_words
+    return actual_headline.replace('\x01', ''), all_potential_headline_words
 
 
 def classify_new_file(file_path):
@@ -170,7 +189,7 @@ def classify_new_file(file_path):
     suitable to be included in the headline.
     """
     file_level_dict, word_dict = get_file_level_details(file_path, False)
-    all_potention_headline_words = {}
+    all_potential_headline_words = {}
 
     file = codecs.open(file_path, 'r', encoding='utf-8')
     for line in file:
@@ -180,10 +199,10 @@ def classify_new_file(file_path):
             headline_words = process_sentence(sentence, file_level_dict, word_dict)
             if headline_words:
                 for key, value in headline_words.iteritems():
-                    all_potention_headline_words[key] = max(value, all_potention_headline_words.get(key, 0))
+                    all_potential_headline_words[key] = max(value, all_potential_headline_words.get(key, 0))
 
     dict_unique_words = {}
-    sorted_headline_words = sorted(all_potention_headline_words.items(), key=operator.itemgetter(1), reverse=True)
+    sorted_headline_words = sorted(all_potential_headline_words.items(), key=operator.itemgetter(1), reverse=True)
     top_20_words= {}
     for entry in sorted_headline_words:
         word_with_tag, value = entry
