@@ -44,5 +44,4 @@ def process_directory(input_dir, output_dir):
 
 if __name__ == '__main__':
     initialise_all()
-    print 'initialisation done'
     process_directory(sys.argv[1], sys.argv[2])

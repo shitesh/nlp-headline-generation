@@ -24,6 +24,9 @@ def process_input_directory(input_directory):
 
 
 def tokenise(text):
+    """Tokenises the input text for calculating tfidf value.
+
+    """
     words = nltk.word_tokenize(text)
     return_list = []
     for word in words:
@@ -35,6 +38,9 @@ def tokenise(text):
 
 
 def generate_tf_idf_values(all_text):
+    """Generate the tfidf values and store it in file.
+
+    """
     global TFIDF_LOCATION
     file = codecs.open('hindi_stopwords.txt', 'r', encoding='utf-8')
     stop_word_list = file.readlines()
