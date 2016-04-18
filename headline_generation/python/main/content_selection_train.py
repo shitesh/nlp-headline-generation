@@ -8,6 +8,7 @@ from feature_functions.features import get_feature_dict, get_outcome
 from feature_functions.file_level_features import get_word_range
 from feature_functions.tfidf_training import tokenise
 from nltk import MaxentClassifier
+from Utils import get_start_end_indices
 
 feature_set = []
 classifier = None
@@ -18,26 +19,6 @@ STOP_WORD_FILE_LOCATION = 'feature_functions/hindi_stopwords.txt'
 TFIDF_LOCATION = 'model/tfidf.pickle'
 
 nltk.config_megam('MEGAM/megam-64.opt')
-
-
-def get_start_end_indices(index, length):
-    """Returns the start and end indices given the current index.
-
-    For any word, the model is dependent on previous two words, previous two POS tags, next two words and next two POS
-     tags. This function helps in managing the corner cases near the beginning and end indices.
-    """
-    start_index, end_index = index, index+1
-    if index - 2 >= 0:
-        start_index = index - 2
-    elif index - 1 >= 0:
-        start_index = index - 1
-
-    if index + 2 <= length - 1:
-        end_index = index+3
-    elif index+1 <= length - 1:
-        end_index = index+2
-
-    return start_index, end_index
 
 
 def initialise():
