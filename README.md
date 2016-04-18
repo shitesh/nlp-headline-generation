@@ -4,10 +4,10 @@ repo for nlp project - Automated natural language headline generation using lear
   
 Team:  
   
-    1. Aditya Mandyam Devashikamani(2588-2983-34) - mandyamd@usc.edu  
-  2  Shitesh Saurav(1452-5838-02) - ssaurav@usc.edu  
-  3  Sumukh Lagadamane Shivashankara(7979-6721-30) - lagadama@usc.edu  
-  4  Surabhi Kakolu(6972-0820-20) - kakolu@usc.edu  
+  1. Aditya Mandyam Devashikamani(2588-2983-34) - mandyamd@usc.edu  
+  2.  Shitesh Saurav(1452-5838-02) - ssaurav@usc.edu  
+  3.  Sumukh Lagadamane Shivashankara(7979-6721-30) - lagadama@usc.edu  
+  4.  Surabhi Kakolu(6972-0820-20) - kakolu@usc.edu  
 
 
 **INTRODUCTION:**<br/>
