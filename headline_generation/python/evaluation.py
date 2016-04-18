@@ -5,9 +5,8 @@ import sys
 import codecs
 from sys import argv
 import numpy as np
+
 script, input = argv
-#from Evaluation.evaluate import evaluation
-#from Evaluation.jaccard_cosine import jaccard
 
 
 '''
@@ -17,10 +16,9 @@ Added a parser file which loops over all the files in a directory and generates 
 cosine_list = {}
 
 def evaluation(s1,s2):
+    '''Returns cosine and tf idf evaluation for two given sentences
+    
     '''
-    returns cosine and tf idf evaluation for two given sentences
-    '''
-
     words = {}
     i = 0
     # loop through each list, find distinct words and map them to a
@@ -61,7 +59,9 @@ def evaluation(s1,s2):
 
 
 def jaccard(actual_headline,genarated_headline):
-    """ This where jaccard fucntionality will happen"""
+    """ Calculates the jaccard similarity value between the passed parameters.
+
+    """
     x = actual_headline.split(" ")
     y= genarated_headline.split(" ")
     intersection_cardinality = len(set.intersection(*[set(genarated_headline), set(y)]))
@@ -101,7 +101,7 @@ def evaluate_headline():
 
                     cosine = evaluation(actual,current)
 
-                    print "Actual Headline:"+actual.decode("utf-8")+"\nCandidate headline:"+current.decode("utf-8")+"\n  Cosine Value :"+str(cosine)
+                    print "Actual Headline:"+actual+"\nCandidate headline:"+current+"\n  Cosine Value :"+str(cosine)
 
                     if(max_cosine<cosine):
                          max_cosine = cosine

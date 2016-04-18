@@ -28,6 +28,10 @@ def get_file_headings(file_path, headline_length=8):
     file.close()
 
     top_20_words = classify_new_file(file_path)
+    import json
+    file = codecs.open('/tmp/dict_word.txt', 'w', encoding='utf-8')
+    file.write(json.dumps(top_20_words))
+    file.close()
 
     heap, next_heap = [], []
     for word in top_20_words:
