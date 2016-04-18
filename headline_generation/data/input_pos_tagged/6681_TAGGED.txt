@@ -1,0 +1,8 @@
+<Headline>
+उल्फा/NNP से/PSP बातचीत/NN की/PSP जमीन/NN हो/VM रही/VAUX है/VAUX तैयार/JJ
+</Headline>
+<text>
+गुवाहाटी,/NN 30/QC दिसम्बर/NN (आईएएनएस)/NNपूर्वोत्तर/NN के/PSP राज्य/NNPC असम/NNP में/PSP लगभग/RP तीन/QC दशक/NN से/PSP जारी/JJ हिंसा/NN के/PSP खत्म/JJ होने/VM के/PSP आसार/NN दिख/VM रहे/VAUX हैं/VAUXयह/PRP कहना/VM है/VM पूर्वोत्तर/NN में/PSP सरकार/NN और/CC अलगाववादी/JJ संगठनों/NN के/PSP बीच/NST मध्यस्थता/NN कर/VM रही/VAUX इंदिरा/NNPC गोस्वामी/NNP का/PSPगोस्वामी/NNP ने/PSP कहा/VM कि/CC बातचीत/NN शुरू/NN करने/VM से/PSP पहले/NST राज्य/NNC सरकार/NN ने/PSP उल्फा/NNP की/PSP मांगों/NN पर/PSP विचार/NN करने/VM का/PSP आश्वासन/NN दिया/VM है/VAUX
+विख्यात/JJ लेखिका/NN इंदिरा/NNPC गोस्वामी/NNP ने/PSP कहा,/NNC ''कांग्रेस/NN के/PSP वरिष्ठ/JJ नेता/NN विरप्पा/NNC मोइली/NN ने/PSP मुझे/PRP बताया/VM है/VAUX कि/CC उल्फा/NNP की/PSP आतंकवादियों/NN की/PSP रिहाई/NN की/PSP मांग/NN के/PSP बारे/PSP में/PSP असम/NNPC सरकार/NN तीन/NNPC जनवरी/NNP तक/PSP फैसला/NN ले/VM सकती/VAUX है/VAUX''/SYM
+गौरतलब/JJ है/VM कि/CC वर्ष/NN 2005/NNP में/PSP उल्फा/NNP ने/PSP सरकार/NN के/PSP साथ/NST बातचीत/NN की/PSP कोशिशों/NN को/PSP सफल/JJ बनाने/VM के/PSP लिए/PSP गठित/JJ किए/VM गए/VAUX 'पीपुल्स/NN कंसल्टेटिव/NN ग्रुप/NN (पीसीजी)'/NNC पैनल/NN की/PSP अध्यक्षता/NN के/PSP लिए/PSP इस/DEM लेखिका/NN का/PSP चयन/NN किया/VM था/VAUXपिछले/JJ दो/QC वर्ष/NN में/PSP पीसीजी/NN के/PSP प्रयासों/NN से/PSP दो/QC चरणों/NN की/PSP वार्ता/NN हो/VM चुकी/VAUX है/VAUXलेकिन/CC वैचारिक/JJ मतभेदों/NN और/CC उल्फा/NNP की/PSP मांगों/NN को/PSP सरकार/NN द्वारा/PSP मंजूर/JJ नहीं/NEG किए/VM जाने/VAUX से/PSP कोई/PRP नतीजा/NN नहीं/NEG निकला/VM
+</text>

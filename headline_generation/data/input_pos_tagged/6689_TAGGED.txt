@@ -1,0 +1,8 @@
+<Headline>
+न्यूनतम/JJ तापमान/NN में/PSP बढ़ोतरी/NN लेकिन/CC ठंड/NN बरकरार/JJ
+</Headline>
+<text>
+नई/JJ दिल्ली,/NN 20/QC दिसम्बर/NN (आईएएनएस)/NNराजधानी/NN में/PSP न्यूनतम/JJ तापमान/NN भले/RP ही/RP थोड़ा/QF बढ़/VM गया/VAUX हो/VAUX लेकिन/CC ठंड/NN से/PSP ठिठुरते/NN लोगों/NN को/PSP फिलहाल/RB कोई/PRP राहत/NN नहीं/NEG हैं/VMदिल्लीवासी/NN गर्म/JJ कपड़ों/NN में/PSP लिपटे/VM हीटर/NN के/PSP सामने/NST दुबके/VM पड़े/VAUX हैं/VAUX
+पिछले/JJ कई/QF दिनों/NN से/PSP तापमान/NN पांच/QC डिग्री/NN के/PSP आसपास/NST बरकार/NN था/VMबुधवार/NNP को/PSP मौसम/NN का/PSP सबसे/INTF ठंडा/JJ दिन/NN दर्ज/JJ किया/VM गया/VAUXइस/DEM दिन/NN तापमान/NN 4.2/QC डिग्री/NNC सेल्सियस/NN रहा/VMमौसम/NNC विभाग/NN के/PSP एक/QC अधिकारी/NN के/PSP अनुसार,/NN ''न्यूनतम/NNC तापमान/NN सामान्य/NN से/PSP तीन/QC डिग्री/NN नीचे/NST है/VMआज/NN दिन/NN भर/RP आसमान/NN साफ/JJ रहेगा/VM लेकिन/CC शाम/NN को/PSP बादल/NN घिर/VM सकते/VAUX हैं/VAUX''/SYM
+उत्तरी/JJ दिल्ली/NNPC निवासी/NN श्रमिष्ठा/NN दास/NNP के/PSP अनुसार,/NNC ''सर्दी/NN के/PSP मौसम/NN में/PSP सुबह/NN बिस्तर/NN से/PSP उठना/NN बड़ा/JJ कष्टदायक/NN है/VMअंगुलियां/NN ठंड/NN में/PSP सुन्न/NN हो/VM जाती/VAUX है/VAUX और/CC यही/DEM मन/NN करता/VM है/VAUX कि/CC पूरा/JJ दिन/NN हीटर/NN के/PSP सामने/NST कॉफी/NN पीते/NN हुए/VM गुजारा/NN जाए/VM''/SYM
+</text>

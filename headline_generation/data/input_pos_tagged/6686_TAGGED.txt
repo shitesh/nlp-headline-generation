@@ -1,0 +1,9 @@
+<Headline>
+रूस/NNP ने/PSP दी/VM अमेरिका/NNP को/PSP पलटवार/NN की/PSP चेतावनी/NN
+</Headline>
+<text>
+मास्को,/NN 25/QC दिसम्बर/NN (आईएएनएस)/NNअमेरिका/NNP रूस/NNP के/PSP परमाणु/NNPC रक्षा/NNC कवच/NN को/PSP कमजोर/JJ करने/VM की/PSP योजना/NN बना/VM रहा/VAUX है/VAUXकेंद्रीय/JJ यूरोप/NNP में/PSP अमेरिका/NNP द्वारा/PSP मिसाइल/NN सुरक्षा/NNC कार्यक्रम/NN इसी/DEM योजना/NN के/PSP तहत/PSP आरंभ/NN किया/VM जा/VAUX रहा/VAUX है/VAUX
+रूसी/NNPC विदेश/NNPC मंत्रालय/NNP के/PSP प्रवक्ता/NN मिखाइल/NNC केमिनिन/NN ने/PSP एक/QC बयान/NN में/PSP कहा/VM है,/NN ''यदि/NN चेक/NN गणराज्य/NNP में/PSP रडार/NN और/CC पोलैंड/NN में/PSP मिसाइलें/NN जमा/JJ की/VM जाती/VAUX हैं/VAUX तो/CC निश्चित/JJ रूप/NN से/PSP रूस/NNP के/PSP एटमी/JJ रक्षा/NNC कवच/NN को/PSP कमजोर/JJ करने/VM के/PSP लिए/PSP सैन्य/JJ अभियान/NN चलाया/VM जाएगा/VAUX''/SYM
+रूस/NNP ने/PSP यह/PRP स्पष्ट/JJ कर/VM दिया/VAUX है/VAUX कि/CC ऐसी/DEM स्थिति/NN में/PSP वह/PRP पलट/VM वार/NN करेगा/VMकेमिनिन/NN ने/PSP कहा,/NN ''हमारे/NN पास/UNK कोई/PRP और/JJ रास्ता/NN नहीं/NEG है/VMहमें/PRP अमेरिका/NNP को/PSP ध्यान/NN में/PSP रखकर/VM अपनी/PRP सेना/NN को/PSP तैयार/JJ करना/VM होगा/VAUX''/SYM
+उन्होंने/PRP चेक/NN विदेश/NNPC मंत्री/NNP करेल/NNC श्वारजेनबर्ग/NN के/PSP हाल/NN ही/RP में/PSP एक/QC अखबार/NN में/PSP छपे/VM साक्षात्कार/NN का/PSP हवाला/NN दिया/VM जिसमें/PRP करेल/NN ने/PSP कहा/VM है/VAUX कि/CC अमेरिका/NNP के/PSP रडार/NN रूस/NNP के/PSP क्षेत्र/NN में/PSP निगरानी/NN के/PSP लिए/PSP होना/VM तर्कसंगत/NN है/VMरूस/NNP ने/PSP अमेरिका/NNP द्वारा/PSP यूरोप/NNP में/PSP मिसाइल/NNC सुरक्षा/JJC संबंधी/JJ योजनाओं/NN को/PSP लागू/JJ करने/VM पर/PSP हमेशा/RB आपत्ति/NN जताई/VM है/VAUXउसका/PRP कहना/VM है/VM कि/CC यह/PRP राष्ट्रीय/JJ सुरक्षा/NN के/PSP लिए/PSP खतरा/NN है/VMजबकि,/NN अमेरिका/NNP का/PSP कहना/VM है/VM कि/CC वह/PRP 'धूर्त'/NNC देशों/NN से/PSP रक्षा/NN के/PSP लिए/PSP ऐसा/PRP करना/VM चाहता/VM है/VAUX
+</text>

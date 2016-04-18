@@ -1,0 +1,8 @@
+<Headline>
+इजरायल/NN की/PSP जेलों/NN से/PSP रिहा/JJ होंगे/VM 400/QC फिलिस्तीनी/NN कैदी/NN
+</Headline>
+<text>
+जेरूसलम,/NN 29/NNPC नवंबर/NNP (आईएएनएस)/NNआगामी/JJ रविवार/NNP को/PSP इजरायल/NN 400/NNP से/PSP अधिक/QF फिलीस्तीन/NNC कैदियों/NN को/PSP रिहा/JJ कर/VM देगा/VAUXसमाचार/NNC एजेंसी/NNC जिनहुआ/NN ने/PSP स्थानीय/JJ समाचार/NNC पत्र/NN 'येदीओथ/NNC आहरोनोथ'/NN के/PSP हवाले/PSP से/PSP यह/DEM जानकारी/NN दी/VM
+वर्तमान/NN में/PSP ये/DEM कैदी/NN इजरायल/NN की/PSP 'केटजिओट'/NNC जेल/NN में/PSP कैद/NN हैं/VMजेल/NNC प्रशासन/NN ने/PSP बताया/VM कि/CC रेड-क्रास/NNC संस्था/NN द्वारा/PSP उन्हें/PRP इन/DEM कैदियों/NN की/PSP रिहाई/NN के/PSP आदेश/NN मिल/VM गए/VAUX हैं/VAUXउन्नीस/NN अक्टूबर/NNP को/PSP इजरायली/NNC मंत्रिमंडल/NN ने/PSP 441/QC कैदियों/NN की/PSP रिहाई/NN को/PSP मंजूरी/NN दी/VM थी/VAUX
+लेकिन/CC मंत्रिमंडलीय/JJ समिति/NN ने/PSP केवल/RP 432/QC मंत्रियों/NN की/PSP रिहाई/NN की/PSP सूची/NN जारी/JJ की/VM थी/VAUXबाद/NST मे/PSP आतंकवादी/JJ गुट/NNC 'हमास'/NN से/PSP जुड़े/VM होने/VAUX के/PSP कारण/PSP कुछ/QF अन्य/JJ कैदियों/NN के/PSP नाम/NN भी/RP इस/DEM सूची/NN से/PSP हटा/VM दिए/VAUX गए/VAUX थे/VAUXगौरतलब/JJ है/VM कि/CC वर्तमान/NN में/PSP एक/QCC हजार/QC से/PSP अधिक/QF फिलीस्तीनी,/NNC इजरायल/NN की/PSP जेलों/NN में/PSP बंद/JJ हैं/VM
+</text>

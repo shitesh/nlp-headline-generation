@@ -1,0 +1,9 @@
+<Headline>
+दिल्ली/NNP से/PSP अहमदाबाद/NNP तक/PSP मोदी/NNP 'ब्रांड'/NN की/PSP धूम/NN
+</Headline>
+<text>
+अहमदाबाद,/NN 23/QC दिसम्बर/NN (आईएएनएस)/NNगुजरात/NNP विधानसभा/NNC चुनाव/NN में/PSP भाजपा/NNP की/PSP शानदार/JJ जीत/NN के/PSP बाद/NST दिल्ली/NNP से/PSP अहमदाबाद/NNP तक/PSP 'मोदी/NNC ब्रांड'/NN की/PSP धूम/NN दिख/VM रही/VAUX है/VAUXमोदी/NNP चेहरा,/NN मोदी/NNP टी-शर्ट,/NN मोदी/NNP नारे.../NN आदि/RP हर/QF तरफ/NST देखे/VM जा/VAUX रहे/VAUX हैं/VAUX
+यहां/PRP प्रदेश/NNPC भाजपा/NNP मुख्यालय/NN सहित/PSP राज्य/NN के/PSP विभिन्न/JJ शहरों/NN में/PSP मोदी/NNP समर्थक/JJ ड्रम/NN की/PSP थाप/NN पर/PSP नृत्य/NN कर/VM रहे/VAUX थे/VAUXसमर्थक/NN अपने/PRP हीरो/NN मोदी/NNP के/PSP समर्थन/NN में/PSP जम/VM कर/VAUX पार्टी/NN का/PSP हरा/VM और/CC केसरिया/NNC झंडा/NN लहरा/NN रहे/VM थे/VAUX
+समर्थकों/NN द्वारा/PSP पटाखे/NN चलाए/VM जा/VAUX रहे/VAUX हैं/VAUX और/CC मिठाई/NN बांटी/VM जा/VAUX रही/VAUX हैं/VAUXइस/DEM विधानसभा/NNC चुनाव/NN में/PSP मशहूर/JJ हुए/VM 'मोदी/NNC मास्क'/NN की/PSP फिर/RB से/PSP धूम/NN मची/VM हुई/VAUX है/VAUX
+पार्टी/NNC मुख्यालय/NN के/PSP सामने/NST कुछ/QF मुस्लिमों/NN ने/PSP भी/RP इस/DEM धूम/NN में/PSP भाग/NN लिया/VMमोहम्मद/NNPC बिलाल/NNP ने/PSP कहा,/NN ''विकास/NNC कार्य/NN हुआ/VM है/VAUXहमें/PRP उम्मीद/NN है/VM कि/CC मोदी/NNPC गुजरात/NNP का/PSP विकास/NN करते/VM रहेंगे/VAUX''/SYM
+</text>

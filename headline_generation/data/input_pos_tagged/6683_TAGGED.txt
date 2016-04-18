@@ -1,0 +1,8 @@
+<Headline>
+नए/JJ साल/NN के/PSP मौके/NN पर/PSP ई-संदेशों/NN की/PSP धूम/NN
+</Headline>
+<text>
+हैम्बर्ग,/NN 21/QC दिसम्बर/NN (आईएएनएस)/NNइंटरनेट/NN और/CC फोन/NN पर/PSP बधाई/NN संदेश/NN देने/VM वालों/PSP में/PSP जर्मनी/NNP के/PSP लोग/NN सबसे/JJ आगे/NST हैं/VM और/CC 'एसएमएस'/NN व/CC 'ई-ग्रीटिंग्स'/NN का/PSP यह/DEM जुनून/NN अब/PRP दुनिया/NN भर/RP के/PSP सिर/NN चढ़/VM कर/VM बोल/VM रहा/VAUX है/VAUX
+समाचार/NNC एजेंसी/NNC डीपीए/NN ने/PSP 1992/QC में/PSP भेजे/VM गए/VAUX पहले/NST एसएमएस/NNP की/PSP वर्षगांठ/NN के/PSP मौके/NN पर/PSP किए/VM गए/VAUX सर्वेक्षण/NN के/PSP हवाले/PSP से/PSP बताया/VM कि/CC तीन/QC में/PSP से/PSP एक/QC जर्मन/JJ नागरिक/NNPC ई-ग्रीटिंग्स,/NN एसएमएस/NNP या/CC मल्टीमीडिया/NN के/PSP माध्यम/NN से/PSP नव/NNC वर्ष/NN और/CC क्रिसमस/NN के/PSP मौके/NN पर/PSP 'ई-संदेश'/NN भेजते/VM हैं/VAUXनौजवानों/NN के/PSP बीच/NST बधाई/NN देने/VM का/PSP यह/DEM नया/JJ ढंग/NNC खासतौर/NN पर/PSP प्रचलित/JJ है/VM14/QC से/PSP 19/NNPC आयु/NNC वर्ग/NN के/PSP नौजवान/NN इंटरनेट/NN और/CC फोन/NN के/PSP माध्यम/NN से/PSP बधाई/NN संदेश/NN देने/VM में/PSP रुचि/NN रखते/VM हैं/VAUX
+'एरफ/NN र्ट/NNC विश्वविद्यालय'/NN के/PSP अनुसंधानकर्ता/NN जोआकिम/NNC होफ्लिक/NN के/PSP अनुसार,/NNC ''बहुत/NN से/PSP लोग/NN ऐसे/PRP हैं/VM जो/PRP सस्ते/JJ माध्यम/NN द्वारा/PSP जल्द/RB से/RP जल्द/RB ज्यादा/QF से/RP ज्यादा/QF लोगों/NN को/PSP बधाई/NN देकर/VM काम/NN पूरा/JJ करना/VM चाहते/VM हैं/VAUX साथ/NST ही/RP फोन/NNC काल/NN द्वारा/PSP परेशान/JJ न/NEG करने/VM के/PSP बारे/PSP में/PSP भी/RP वह/DEM सजग/NN हैं/VM इन/DEM मामलों/NN में/PSP ई-संदेश/NN अच्छा/JJ विकल्प/NN हैं/VM''/SYM
+</text>

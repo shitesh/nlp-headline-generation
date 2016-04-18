@@ -1,0 +1,9 @@
+<Headline>
+ब्रिटनी/NN अब/PRP आधुनिक/JJ मदर/NNP मेरी/PRP की/PSP भूमिका/NN में/PSP
+</Headline>
+<text>
+लंदन,/NN 27/NNPC दिसम्बर/NNP (आईएएनएस)/NNपॉप/NNC गायिका/NN ब्रिटनी/NN स्पीयर्स/NN एक/QC फिल्म/NN में/PSP मदर/NNP मेरी/PRP के/PSP 'आधुनिक/NNC संस्करण'/NN का/PSP किरदार/NN निभाएंगी/NN
+फ्रांस/NNP के/PSP निर्माता/NN फिलिप/NNPC रे?बोह/NNP ने/PSP ब्रिटनी/NN से/PSP यह/DEM किरदार/NN निभाने/VM के/PSP लिए/PSP कहा/VM है/VAUXउनका/PRP कहना/VM है/VM कि/CC ब्रिटनी/NN अभी/PRP पटकथा/NN पढ़/VM रही/VAUX हैं/VAUX
+रेब्बोह/NN के/PSP अनुसार,/NN ब्रिटनी/NN इसमें/PRP एक/QC युवा/JJ महिला/NN का/PSP किरदार/NN निभाएंगीं/NN जो/PRP क्रिसमस/NN की/PSP संध्या/NN पर/PSP मैरीलैंड/NN के/PSP बेथलहेम/NN में/PSP एक/QC बच्चे/NN को/PSP जन्म/NN देती/VM है/VAUXइस/DEM बच्चे/NN के/PSP नया/JJ मसीहा/NN होने/VM की/PSP अफवाहें/NN तब/PRP जोर/NN पकड़ती/NN हैं/VM
+रेब्बोह/NN ने/PSP कहा,/NN ''मुझे/NN अपने/PRP साथियों/NN को/PSP समझाना/VM पड़ा/VAUXलेकिन,/NN मुझे/PRP लगता/VM है/VAUX कि/CC ब्रिटनी/NN को/PSP लेना/VM सही/JJ फैसला/NN था/VM''/SYM
+</text>
