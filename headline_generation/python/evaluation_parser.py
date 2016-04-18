@@ -101,7 +101,7 @@ def evaluate_headline():
 
                     cosine = evaluation(actual,current)
 
-                    print "Actual Headline:"+actual.decode("utf-8")+"\nCandidate headline:"+current.decode("utf-8")+"\n  Cosine Value :"+str(cosine)
+                    #print "Actual Headline:"+actual.decode("utf-8")+"\nCandidate headline:"+current.decode("utf-8")+"\n  Cosine Value :"+str(cosine)
 
                     if(max_cosine<cosine):
                          max_cosine = cosine
