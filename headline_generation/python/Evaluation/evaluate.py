@@ -3,7 +3,7 @@ import numpy as np
 
 
 #A = "हाल ही में राज्य"
-#B = "हाल ही में "
+#B = "हाल ही "
 
 #print A.decode("utf-8")
 
@@ -36,11 +36,11 @@ def evaluation(s1,s2):
 
     # loop through each list and create a corresponding vector for it
     # this vector counts occurrences of each word in the dictionary
-    for word in A:
+    for word in s1:
         index = words[word]
         a[index] += 1
 
-    for word in B:
+    for word in s2:
         index = words[word]
         b[index] += 1
 
