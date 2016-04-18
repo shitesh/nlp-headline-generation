@@ -1,6 +1,14 @@
 # nlp-topic-detection
 
-repo for nlp project - Automated natural language headline generation using learning models
+repo for nlp project - Automated natural language headline generation using learning models  
+  
+Team:  
+  
+  1. Aditya Mandyam Devashikamani(2588-2983-34) - mandyamd@usc.edu  
+  2.  Shitesh Saurav(1452-5838-02) - ssaurav@usc.edu  
+  3.  Sumukh Lagadamane Shivashankara(7979-6721-30) - lagadama@usc.edu  
+  4.  Surabhi Kakolu(6972-0820-20) - kakolu@usc.edu  
+
 
 **INTRODUCTION:**<br/>
 Headline generation is an important problem in Text Summarization and has several practical applications. The headline of a text, especially a news article is a compact, grammatical and coherent representation of important pieces of information in the news article. Although newspaper articles are usually accompanied by headlines, there are numerous other types of news text sources, such as transcripts of radio and television broadcasts and machine translated texts where such summary information is missing. We plan to generate automatic natural language headline generation for Hindi language where no major work has been done yet.
@@ -8,10 +16,9 @@ Headline generation is an important problem in Text Summarization and has severa
 **METHOD:**
 
 **Data Sources:**<br/>
-	1. HindMonoCorp, a monolingual corpus of Hindi. HindMonoCorp amounts to 87 million tokens in 44 million sentences.  
+	1. HindMonoCorp, a monolingual corpus of Hindi. HindMonoCorp amounts to 87 million tokens in 44 million sentences. 
 	2. Hindi web texts (HWT), a monolingual corpus containing Hindi news articles.  
-	3. Google news(Hindi) - If needed, we will crawl Google news to extract group of headlines and  news stories    
-	4. Hindi Wordnet -  used for evaluating the performance.  
+	3. Hindi Wordnet -  used for evaluating the performance.  
 **POS Tagger**<br/>
 							Python NLTK tool and Siva Reddy’s Hindi Part of speech tagger.  
 

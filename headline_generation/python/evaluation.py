@@ -101,8 +101,6 @@ def evaluate_headline():
 
                     cosine = evaluation(actual,current)
 
-                    print "Actual Headline:"+actual+"\nCandidate headline:"+current+"\n  Cosine Value :"+str(cosine)
-
                     if(max_cosine<cosine):
                          max_cosine = cosine
                          cosine_list[fname]=max_cosine
