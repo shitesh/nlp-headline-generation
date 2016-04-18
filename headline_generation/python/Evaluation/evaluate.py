@@ -47,7 +47,7 @@ def evaluation(s1,s2):
 
     # use numpy's dot product to calculate the cosine similarity
     sim = np.dot(a, b) / np.sqrt(np.dot(a, a) * np.dot(b, b))
-    print "cosine value is "+str(sim)
+    #print "cosine value is "+str(sim)
     return sim
 
 #print evaluation(A,B)
