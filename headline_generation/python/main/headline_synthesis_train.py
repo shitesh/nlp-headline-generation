@@ -6,6 +6,7 @@ import pickle
 from content_selection_classify import *
 from feature_functions.BLEU_comparison import get_bleu_score
 from feature_functions.headline_model_features import get_headline_synthesis_features
+from feature_functions.generate_language_model_features import get_feature_values
 from nltk import MaxentClassifier
 
 headline_feature_set = []
@@ -36,41 +37,58 @@ def process_directory(input_directory):
     all_headlines = []
     dict_content_score = {}
     dict_bleu = {}
+    error_file = open('headline_error.txt', 'w')
+    count = 0
     for file_name in os.listdir(input_directory):
-        print file_name
-        file_path = os.path.join(input_directory, file_name)
-        headline, word_dict = classify_dev_file(file_path)
+        count += 1
+        print count, file_name
+        try:
+            file_path = os.path.join(input_directory, file_name)
+            headline, word_dict = classify_dev_file(file_path)
 
-        content_score = 0
-        for word in headline.split():
-            # todo: recheck this, what if word is present in headline but not in text?
-            content_score += word_dict.get(word, 0)
+            content_score = 0
+            for word in headline.split():
+                # todo: recheck this, what if word is present in headline but not in text?
+                content_score += word_dict.get(word, 0)
 
-        if content_score in dict_content_score:
-            dict_content_score[content_score] += 1
-        else:
-            dict_content_score[content_score] = 1
+            if content_score in dict_content_score:
+                dict_content_score[content_score] += 1
+            else:
+                dict_content_score[content_score] = 1
 
-        # get bleu score
-        bleu_score = get_bleu_score_probability(file_path)
-        if bleu_score in dict_bleu:
-            dict_bleu[bleu_score] += 1
-        else:
-            dict_bleu[bleu_score] = 1
+            # get bleu score
+            bleu_score = get_bleu_score_probability(file_path)
+            if bleu_score in dict_bleu:
+                dict_bleu[bleu_score] += 1
+            else:
+                dict_bleu[bleu_score] = 1
 
-        all_headlines.append(headline)
+            all_headlines.append(headline)
+        except Exception, e:
+            error_file.write('%s %s' % (file_name, e))
+            continue
+    error_file.close()
 
-    headline_feature_set = get_headline_synthesis_features(all_headlines)
+    headline_feature_set = get_feature_values(all_headlines)
 
     for score, count in dict_content_score.iteritems():
         output_dict = {'content_score':  score}
         outcome = float(count)/len(dict_content_score)
         headline_feature_set.append((output_dict, outcome))
 
+
     for score, count in dict_bleu.iteritems():
         output_dict = {'bleu_score': score}
         outcome = float(count)/len(dict_content_score)
         headline_feature_set.append((output_dict, outcome))
+
+    import json
+    file = codecs.open('/tmp/sequence.txt', 'w', encoding='utf-8')
+    for entry in headline_feature_set:
+        file.write(json.dumps(entry))
+        file.write('\n')
+    file.close()
+
 
 
 def train():

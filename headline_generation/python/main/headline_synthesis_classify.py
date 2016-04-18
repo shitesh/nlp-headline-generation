@@ -4,6 +4,7 @@
 import pickle
 from feature_functions.BLEU_comparison import get_bleu_score
 from feature_functions.headline_model_features import get_classification_dictionary
+from feature_functions.generate_language_model_features import get_features
 
 headline_synthesis_classifier = None
 
@@ -25,26 +26,35 @@ def get_headline_synthesis_score(headline_seq, dict_content_score, file_text):
     Uses the trained headline synthesis model to find out the probability.
     """
     global headline_synthesis_classifier
-    dict_features = {}
-    content_score = 0
+
     headline_words = headline_seq.split()
+    feature_list = get_features(headline_seq)
 
-    bleu_score = get_bleu_score(headline_seq, file_text)
-    for word in headline_words:
-        content_score += dict_content_score.get(word, 0)
+    # handle the case of start tag for trigram
+    start_feature = feature_list.pop(0)
+    start_feature['content_score'] = dict_content_score[headline_words[0]] + dict_content_score[headline_words[1]]
+    start_feature['bleu_score'] = 0.0
 
-    dict_features['content_score']= content_score
+    probability = headline_synthesis_classifier.classify(start_feature)
+    if probability == 1.0:
+        probability = 0
 
-    if bleu_score:
-        dict_features['bleu_score'] = bleu_score
+    for index in xrange(0, len(headline_words)-2):
+        headline_seq = ' '.join(headline_words[index: index+3])
+        bleu_score = get_bleu_score(headline_seq, file_text)
 
-    temp_dict = get_classification_dictionary(headline_seq)
-    for key, value in temp_dict.iteritems():
-        if key == 'headline_len':
-            continue
-        dict_features[key] = value
+        content_score = 0
+        for word in headline_words[index: index+3]:
+            content_score += dict_content_score[word]
 
-    probability = headline_synthesis_classifier.classify(dict_features)
+        feature_dict = feature_list.pop(0)
+        feature_dict['content_score'] = content_score
+        feature_dict['bleu_score'] = bleu_score
+        temp = headline_synthesis_classifier.classify(feature_dict)
+        if temp == 1.0:
+            temp = 0
+        probability += temp
+
     return probability
 
 
